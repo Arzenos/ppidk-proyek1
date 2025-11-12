@@ -60,13 +60,13 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Checking /usr/local/sbin...  [ FOUND ]
 - Authentication:
 - PAM (Pluggable Authentication Modules):
-- libpam-tmpdir [ Not Installed ]
+- libpam-tmpdir [ Installed and Enabled ]
 - File System Checks:
 - DM-Crypt, Cryptsetup & Cryptmount:
 - Software:
-- apt-listbugs [ Not Installed ]
+- apt-listbugs [ Installed and enabled for apt ]
 - apt-listchanges [ Installed and enabled for apt ]
-- needrestart [ Not Installed ]
+- needrestart [ Installed ]
 - fail2ban [ Installed with jail.conf ]
 ]
 
@@ -77,7 +77,7 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Checking presence GRUB2 [ FOUND ]
 - Checking for password protection [ NONE ]
 - Check running services (systemctl) [ DONE ]
-Result: found 12 running services
+Result: found 11 running services
 - Check enabled services at boot (systemctl) [ DONE ]
 Result: found 14 enabled services
 - Check startup files (permissions) [ OK ]
@@ -104,7 +104,6 @@ Result: found 14 enabled services
 - systemd-timesyncd.service: [ PROTECTED ]
 - systemd-udevd.service: [ MEDIUM ]
 - unattended-upgrades.service: [ UNSAFE ]
-- user@1000.service: [ UNSAFE ]
 
 [+] Kernel
 ------------------------------------
@@ -124,7 +123,7 @@ Found 116 active modules
 - 'hard' configuration in /etc/security/limits.conf [ DEFAULT ]
 - 'soft' configuration in /etc/security/limits.conf [ DEFAULT ]
 - Checking setuid core dumps configuration [ DISABLED ]
-- Check if reboot is needed [ NO ]
+- Check if reboot is needed [ YES ]
 
 [+] Memory and Processes
 ------------------------------------
@@ -193,7 +192,7 @@ Result: found 8 shells (valid shells: 8).
 - Mount options of /dev [ PARTIALLY HARDENED ]
 - Mount options of /dev/shm [ PARTIALLY HARDENED ]
 - Mount options of /run [ HARDENED ]
-- Total without nodev:6 noexec:6 nosuid:3 ro or noexec (W^X): 6 of total 26
+- Total without nodev:6 noexec:5 nosuid:3 ro or noexec (W^X): 5 of total 25
 - Disable kernel support of some filesystems
 
 [+] USB Devices
@@ -224,10 +223,10 @@ Result: found 8 shells (valid shells: 8).
 - Searching package managers
 - Searching dpkg package manager [ FOUND ]
 - Querying package manager
-- Query unpurged packages [ NONE ]
+- Query unpurged packages [ FOUND ]
 - Checking security repository in sources.list file [ OK ]
 - Checking APT package database [ OK ]
-- Checking vulnerable packages [ WARNING ]
+- Checking vulnerable packages (apt-get only) [ DONE ]
 - Checking upgradeable packages [ SKIPPED ]
 - Checking package audit tool [ INSTALLED ]
 Found: apt-get
@@ -370,7 +369,7 @@ No database engines found
 ------------------------------------
 - NTP daemon found: systemd (timesyncd) [ FOUND ]
 - Checking for a running NTP daemon or client [ OK ]
-- Last time synchronization [ 1304s ]
+- Last time synchronization [ 10s ]
 
 [+] Cryptography
 ------------------------------------
@@ -395,7 +394,7 @@ No database engines found
 - Checking current mode and config file [ OK ]
 Current SELinux mode: permissive
 Found 0 permissive SELinux object types
-Found 13 unconfined and 1 initrc_t processes
+Found 10 unconfined and 1 initrc_t processes
 - Checking presence TOMOYO Linux [ NOT FOUND ]
 - Checking presence grsecurity [ NOT FOUND ]
 - Checking for implemented MAC framework [ OK ]
@@ -505,25 +504,17 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
 
   Warnings (2):
   ----------------------------
-  ! Found one or more vulnerable packages. [PKGS-7392] 
-      https://cisofy.com/lynis/controls/PKGS-7392/
+  ! Reboot of system is most likely needed [KRNL-5830] 
+    - Solution : reboot
+      https://cisofy.com/lynis/controls/KRNL-5830/
 
   ! Couldn't find 2 responsive nameservers [NETW-2705] 
       https://cisofy.com/lynis/controls/NETW-2705/
 
-  Suggestions (47):
+  Suggestions (44):
   ----------------------------
   * This release is more than 4 months old. Check the website or GitHub to see if there is an update available. [LYNIS] 
       https://cisofy.com/lynis/controls/LYNIS/
-
-  * Install libpam-tmpdir to set $TMP and $TMPDIR for PAM sessions [DEB-0280] 
-      https://cisofy.com/lynis/controls/DEB-0280/
-
-  * Install apt-listbugs to display a list of critical bugs prior to each APT installation. [DEB-0810] 
-      https://cisofy.com/lynis/controls/DEB-0810/
-
-  * Install needrestart, alternatively to debian-goodies, so that you can run needrestart after upgrades to determine which daemons are using old versions of libraries and need restarting. [DEB-0831] 
-      https://cisofy.com/lynis/controls/DEB-0831/
 
   * Copy /etc/fail2ban/jail.conf to jail.local to prevent it being changed by updates. [DEB-0880] 
       https://cisofy.com/lynis/controls/DEB-0880/
@@ -574,11 +565,11 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
   * Check DNS configuration for the dns domain name [NAME-4028] 
       https://cisofy.com/lynis/controls/NAME-4028/
 
+  * Purge old/removed packages (2 found) with aptitude purge or dpkg --purge command. This will cleanup old configuration files, cron jobs and startup scripts. [PKGS-7346] 
+      https://cisofy.com/lynis/controls/PKGS-7346/
+
   * Install debsums utility for the verification of packages with known good database. [PKGS-7370] 
       https://cisofy.com/lynis/controls/PKGS-7370/
-
-  * Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades [PKGS-7392] 
-      https://cisofy.com/lynis/controls/PKGS-7392/
 
   * Install package apt-show-versions for patch management purposes [PKGS-7394] 
       https://cisofy.com/lynis/controls/PKGS-7394/

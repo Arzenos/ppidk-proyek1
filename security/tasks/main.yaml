@@ -46,16 +46,27 @@
   tags:
   - molecule-idempotence-notest
 
-# Check, turn off to pass idempotent check
-- name: Get status of ssh
-  ansible.builtin.command: systemctl status ssh.service
-  register: ssh_status
+- name: Gather service facts
+  ansible.builtin.service_facts:
   tags:
   - molecule-idempotence-notest
 
-- name: Print ssh status output
+- name: Ensure SSH service is running
+  ansible.builtin.assert:
+    that:
+    - "'ssh.service' in ansible_facts.services"
+    - ansible_facts.services['ssh.service'].state == 'running'
+    fail_msg: "SSH service is not running or missing. Showing details below:"
+    success_msg: "SSH service is active and running."
+  register: ssh_check_result
+  ignore_errors: true
+  tags:
+  - molecule-idempotence-notest
+
+- name: Print SSH service details if check failed
   ansible.builtin.debug:
-    var: ssh_status.stdout
+    var: ansible_facts.services['ssh.service']
+  when: ssh_check_result is failed
   tags:
   - molecule-idempotence-notest
 
@@ -95,20 +106,12 @@
   - { direction: outgoing, policy: allow }
   - { direction: incoming, policy: deny }
 
-- name: Debug current ansible_port
-  ansible.builtin.debug:
-    var: ansible_port
-
 - name: Update ansible_port for this host
   ansible.builtin.set_fact:
     ansible_port: "{{ new_ssh_port }}"
 
 - name: Reconnect to host with new port
   ansible.builtin.meta: reset_connection
-
-- name: Debug current ansible_port
-  ansible.builtin.debug:
-    var: ansible_port
 
 # Fail2ban
 # TODO: Add config http://www.fail2ban.org/wiki/index.php/MANUAL_0_8

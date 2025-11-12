@@ -1,2 +1,11 @@
+// How often (in days) to run apt update
 APT::Periodic::Update-Package-Lists "1";
+
+// How often (in days) to download new packages
+APT::Periodic::Download-Upgradeable-Packages "1";
+
+// How often (in days) to run unattended-upgrades
 APT::Periodic::Unattended-Upgrade "1";
+
+// How often (in days) to apt clean
+APT::Periodic::AutocleanInterval "7";
