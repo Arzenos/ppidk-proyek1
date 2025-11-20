@@ -7,16 +7,28 @@ Vagrant?
 
 
 # How to work on this
-There are a couple option, such as spinning up a VM. Change the inventory.ini user and IP according to the VM then running: 
+There are a couple option, such as spinning up a VM. Change the inventory.ini user and IP according to the VM 
+You should also set the password in inventory.ini, you can then run 
 ```
-ansible-playbook playbook.yaml --ask-become-pass --ask-pass
+ansible-playbook playbook.yaml
 ```
 
 after the security roles is executed, the SSH port will be change to whatever is configured (default is 2222)
 also SSH via password will also no longer be able to be done, therefore do
 ```
-ansible-playbook playbook.yaml -e "ansible_port=2222" --ask-become-pass
+ansible-playbook playbook.yaml -e "ansible_port=2222" 
 ```
+
+To provision VM can also be done using Vagrant by doing
+```
+vagrant up --provider=libvirt
+```
+
+This VM can be destroyed by running
+```
+vagrant destroy -f
+```
+
 
 
 Another way is by running 
@@ -26,9 +38,6 @@ molecule test
 
 Molecule can be installed via https://docs.ansible.com/projects/molecule/installation/#pip
 If you do add a new roles, you can add them and follow the pattern in molecule/default/converge.yml
-
-
-If there is an issue in the molecule CI check, especially if you dont use molecule just leave it there its fine, i can fix later
 
 
 # Audit
