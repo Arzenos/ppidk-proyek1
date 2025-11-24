@@ -61,7 +61,7 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Authentication:
 - PAM (Pluggable Authentication Modules):
 
-  [WARNING]: Test DEB-0001 had a long execution: 11.511192 seconds
+  [WARNING]: Test DEB-0001 had a long execution: 10.871188 seconds
 
 - libpam-tmpdir [ Installed and Enabled ]
 - File System Checks:
@@ -83,7 +83,7 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Checking presence GRUB2 [ FOUND ]
 - Checking for password protection [ NONE ]
 - Check running services (systemctl) [ DONE ]
-Result: found 21 running services
+Result: found 20 running services
 - Check enabled services at boot (systemctl) [ DONE ]
 Result: found 47 enabled services
 - Check startup files (permissions) [ OK ]
@@ -96,7 +96,6 @@ Result: found 47 enabled services
 - dmesg.service: [ UNSAFE ]
 - emergency.service: [ UNSAFE ]
 - fail2ban.service: [ UNSAFE ]
-- fwupd.service: [ EXPOSED ]
 - getty@tty1.service: [ UNSAFE ]
 - iscsid.service: [ UNSAFE ]
 - lvm2-lvmpolld.service: [ UNSAFE ]
@@ -141,7 +140,7 @@ CPU support: PAE and/or NoeXecute supported [ FOUND ]
 - Checking kernel version and release [ DONE ]
 - Checking kernel type [ DONE ]
 - Checking loaded kernel modules [ DONE ]
-Found 66 active modules
+Found 63 active modules
 - Checking Linux kernel configuration file [ FOUND ]
 - Checking default I/O kernel scheduler [ NOT FOUND ]
 - Checking for available kernel update [ OK ]
@@ -312,7 +311,7 @@ Nameserver: 127.0.0.53 [ OK ]
 - OpenSSH option: GatewayPorts [ OK ]
 - OpenSSH option: IgnoreRhosts [ OK ]
 - OpenSSH option: LoginGraceTime [ OK ]
-- OpenSSH option: LogLevel [ SUGGESTION ]
+- OpenSSH option: LogLevel [ OK ]
 - OpenSSH option: MaxAuthTries [ OK ]
 - OpenSSH option: MaxSessions [ SUGGESTION ]
 - OpenSSH option: PermitRootLogin [ OK ]
@@ -401,13 +400,13 @@ No database engines found
 ------------------------------------
 - NTP daemon found: systemd (timesyncd) [ FOUND ]
 - Checking for a running NTP daemon or client [ OK ]
-- Last time synchronization [ 209s ]
+- Last time synchronization [ 163s ]
 
 [+] Cryptography
 ------------------------------------
 - Checking for expired SSL certificates [0/150] [ NONE ]
 
-  [WARNING]: Test CRYP-7902 had a long execution: 13.888908 seconds
+  [WARNING]: Test CRYP-7902 had a long execution: 13.030150 seconds
 
 - Found 0 encrypted and 0 unencrypted swap devices in use. [ OK ]
 - Kernel entropy is sufficient [ YES ]
@@ -541,7 +540,7 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
 
   Great, no warnings
 
-  Suggestions (41):
+  Suggestions (40):
   ----------------------------
   * This release is more than 4 months old. Check the website or GitHub to see if there is an update available. [LYNIS] 
       https://cisofy.com/lynis/controls/LYNIS/
@@ -621,10 +620,6 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
       https://cisofy.com/lynis/controls/SSH-7408/
 
   * Consider hardening SSH configuration [SSH-7408] 
-    - Details  : LogLevel (set INFO to VERBOSE)
-      https://cisofy.com/lynis/controls/SSH-7408/
-
-  * Consider hardening SSH configuration [SSH-7408] 
     - Details  : MaxSessions (set 10 to 2)
       https://cisofy.com/lynis/controls/SSH-7408/
 
@@ -687,7 +682,7 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
 
   Lynis security scan details:
 
-  Hardening index : 72 [##############      ]
+  Hardening index : 73 [##############      ]
   Tests performed : 260
   Plugins enabled : 1
 

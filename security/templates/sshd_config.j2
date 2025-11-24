@@ -39,10 +39,6 @@ X11Forwarding no
 #AllowGroups dev ops
 
 
-
-
-
-
 # This force login to ONLY use public key, disable all other fallback
 AuthenticationMethods publickey
 PasswordAuthentication no
@@ -64,8 +60,6 @@ PermitRootLogin no
 PubkeyAuthentication yes
 
 
-
-
 # Enforce server to only use SSH protocol version 2
 Protocol 2
 
@@ -74,3 +68,6 @@ TCPKeepAlive no
 
 # Prevents DNS spoofing issues.
 UseDNS no
+
+# Easier Audit
+LogLevel VERBOSE
