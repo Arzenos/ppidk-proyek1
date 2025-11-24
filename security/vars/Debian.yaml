@@ -16,6 +16,7 @@ package_needed:
 - apt-listchanges
 - needrestart
 - libpam-tmpdir
+- libpam-pwquality
 
 systemd_hardening:
 - ssh.service

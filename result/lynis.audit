@@ -61,7 +61,7 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Authentication:
 - PAM (Pluggable Authentication Modules):
 
-  [WARNING]: Test DEB-0001 had a long execution: 10.871188 seconds
+  [WARNING]: Test DEB-0001 had a long execution: 11.748703 seconds
 
 - libpam-tmpdir [ Installed and Enabled ]
 - File System Checks:
@@ -140,7 +140,7 @@ CPU support: PAE and/or NoeXecute supported [ FOUND ]
 - Checking kernel version and release [ DONE ]
 - Checking kernel type [ DONE ]
 - Checking loaded kernel modules [ DONE ]
-Found 63 active modules
+Found 62 active modules
 - Checking Linux kernel configuration file [ FOUND ]
 - Checking default I/O kernel scheduler [ NOT FOUND ]
 - Checking for available kernel update [ OK ]
@@ -177,7 +177,7 @@ Found 63 active modules
 - Permissions for: /etc/sudoers [ OK ]
 - Permissions for: /etc/sudoers.d/90-cloud-init-users [ OK ]
 - Permissions for: /etc/sudoers.d/README [ OK ]
-- PAM password strength tools [ SUGGESTION ]
+- PAM password strength tools [ OK ]
 - PAM configuration files (pam.conf) [ FOUND ]
 - PAM configuration files (pam.d) [ FOUND ]
 - PAM modules [ FOUND ]
@@ -400,13 +400,13 @@ No database engines found
 ------------------------------------
 - NTP daemon found: systemd (timesyncd) [ FOUND ]
 - Checking for a running NTP daemon or client [ OK ]
-- Last time synchronization [ 163s ]
+- Last time synchronization [ 14s ]
 
 [+] Cryptography
 ------------------------------------
 - Checking for expired SSL certificates [0/150] [ NONE ]
 
-  [WARNING]: Test CRYP-7902 had a long execution: 13.030150 seconds
+  [WARNING]: Test CRYP-7902 had a long execution: 12.139951 seconds
 
 - Found 0 encrypted and 0 unencrypted swap devices in use. [ OK ]
 - Kernel entropy is sufficient [ YES ]
@@ -540,7 +540,7 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
 
   Great, no warnings
 
-  Suggestions (40):
+  Suggestions (39):
   ----------------------------
   * This release is more than 4 months old. Check the website or GitHub to see if there is an update available. [LYNIS] 
       https://cisofy.com/lynis/controls/LYNIS/
@@ -560,9 +560,6 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
 
   * Configure password hashing rounds in /etc/login.defs [AUTH-9230] 
       https://cisofy.com/lynis/controls/AUTH-9230/
-
-  * Install a PAM module for password strength testing like pam_cracklib or pam_passwdqc [AUTH-9262] 
-      https://cisofy.com/lynis/controls/AUTH-9262/
 
   * When possible set expire dates for all password protected accounts [AUTH-9282] 
       https://cisofy.com/lynis/controls/AUTH-9282/
@@ -682,7 +679,7 @@ Directory: /etc/cron.monthly [ SUGGESTION ]
 
   Lynis security scan details:
 
-  Hardening index : 73 [##############      ]
+  Hardening index : 74 [##############      ]
   Tests performed : 260
   Plugins enabled : 1
 
