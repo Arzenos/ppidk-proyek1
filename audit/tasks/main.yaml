@@ -1,8 +1,10 @@
-- name: Setup for debian based server
-  include_tasks: Debian-setup.yaml
-  when: ansible_facts.os_family == 'Debian'
+- name: Load vars based on distro
+  include_vars: "{{ ansible_facts.os_family }}.yaml"
 
-- name: Run lynis 
+- name: Install packages based on distro
+  include_tasks: "{{ ansible_facts.os_family }}-setup.yaml"
+
+- name: Run lynis
   ansible.builtin.command: lynis audit system --nocolors
   register: lynis
   tags:
@@ -18,7 +20,7 @@
 - name: Save lynis result to a file
   ansible.builtin.copy:
     # Get rid of ANSI Escape sequence and any other tomfoolery
-    content: "{{ lynis.stdout | regex_replace('\x1B\\[[0-9;]*[A-Za-z]', '') }}"
+    content: "{{ lynis.stdout | regex_replace('\e\\[[0-9;]*[A-Za-z]', '') }}"
     dest: "{{ playbook_dir }}/result/lynis.audit"
   delegate_to: localhost
   become: false

@@ -1,10 +1,12 @@
 # Setup, Installation etc
-- name: Setup for debian based server
-  include_tasks: Debian-setup.yaml
-  when: ansible_facts.os_family == 'Debian'
+- name: Load vars based on distro
+  include_vars: "{{ ansible_facts.os_family }}.yaml"
+
+- name: Install packages based on distro
+  include_tasks: "{{ ansible_facts.os_family }}-setup.yaml"
 
 - name: Create a SSH Key for the current user
-  ansible.builtin.include_tasks: ssh-key.yaml
+  include_tasks: ssh-key.yaml
   when: ansible_user != "root"
 
 # SSH
@@ -14,7 +16,7 @@
 # Automated Updates
 - name: Setup unattended-upgrades
   include_tasks: unattended-upgrades.yaml
-  when: not "{{ molecule_testing | default(false) }}"
+  when: not molecule_testing | default(false)
 
 # UFW
 - name: Setup UFW
@@ -30,4 +32,4 @@
 
 # systemd hardening
 - name: systemd hardening
-  include_tasks:  systemd-hardening.yaml
+  include_tasks: systemd-hardening.yaml

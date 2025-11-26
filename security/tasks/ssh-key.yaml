@@ -16,12 +16,6 @@
   delegate_to: localhost
   become: false
 
-# - name: Fix SSH key ownership
-#   file:
-#     path: "{{ playbook_dir }}/key/{{ ansible_user }}"
-#   delegate_to: localhost
-#   run_once: true
-
 - name: Deploy the generated public key to remote hosts
   ansible.posix.authorized_key:
     user: "{{ ansible_user }}"
