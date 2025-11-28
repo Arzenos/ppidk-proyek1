@@ -1,6 +1,7 @@
 - name: Apt update
   ansible.builtin.apt:
     update_cache: yes
+    cache_valid_time: 3600
 
 - name: Install all the packages neeeded using apt
   ansible.builtin.apt:
