@@ -26,10 +26,30 @@
 - name: Setup fail2ban
   include_tasks: fail2ban.yaml
 
-# SELinux https://wiki.debian.org/SELinux/Setup, https://major.io/p/getting-started-with-selinux/, https://cycle.io/learn/selinux-basics
-- name: Setup SELinux
-  include_tasks: selinux.yaml
+# # SELinux https://wiki.debian.org/SELinux/Setup, https://major.io/p/getting-started-with-selinux/, https://cycle.io/learn/selinux-basics
+# - name: Setup SELinux
+#   include_tasks: selinux.yaml
 
 # systemd hardening
 - name: systemd hardening
   include_tasks: systemd-hardening.yaml
+
+# AppArmor
+- name: Setup and Enable AppArmor
+  include_tasks: apparmor.yaml  
+
+# Fix Permission
+- name: Fix file / directory permissions
+  include_tasks: permission.yaml
+
+# others
+- name: Setup Auditd
+  include_tasks: other.yaml
+
+- name: Setup AIDE
+  include_tasks: aide.yaml
+
+- name: Reboot the server
+  ansible.builtin.reboot:
+  tags:
+  - molecule-notest

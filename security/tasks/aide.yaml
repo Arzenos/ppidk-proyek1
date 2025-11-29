@@ -1,0 +1,22 @@
+- name: Initialize AIDE database
+  command: aideinit
+  args:
+    creates: /var/lib/aide/aide.db.new
+  tags:
+  - molecule-idempotence-notest
+
+- name: Move new AIDE database into place
+  command: mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db
+  args:
+    removes: /var/lib/aide/aide.db.new
+  tags:
+  - molecule-idempotence-notest
+
+- name: Fix AIDE DB permissions
+  file:
+    path: /var/lib/aide/aide.db
+    owner: root
+    group: root
+    mode: '0600'
+  tags:
+  - molecule-idempotence-notest

@@ -1,0 +1,16 @@
+- name: Copy recommended audit rules
+  copy:
+    src: /usr/share/audit/sample-rules/
+    dest: /etc/audit/rules.d/
+    owner: root
+    group: root
+    mode: "0640"
+    remote_src: yes
+
+- name: Load audit rules
+  command: augenrules --load
+
+- name: Restart auditd
+  systemd:
+    name: auditd
+    state: restarted

@@ -1,0 +1,57 @@
+- name: Fix permissions for /etc/sudoers.d
+  ansible.builtin.file:
+    path: /etc/sudoers.d
+    owner: root
+    group: root
+    mode: "0750"
+
+- name: Fix permissions for /etc/crontab
+  ansible.builtin.file:
+    path: /etc/crontab
+    owner: root
+    group: root
+    mode: "0600"
+  tags:
+  - molecule-notest
+
+- name: Fix permissions for /etc/ssh/sshd_config
+  ansible.builtin.file:
+    path: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: "0600"
+
+- name: Fix permissions for /etc/cron.d
+  ansible.builtin.file:
+    path: /etc/cron.d
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Fix permissions for /etc/cron.daily
+  ansible.builtin.file:
+    path: /etc/cron.daily
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Fix permissions for /etc/cron.hourly
+  ansible.builtin.file:
+    path: /etc/cron.hourly
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Fix permissions for /etc/cron.weekly
+  ansible.builtin.file:
+    path: /etc/cron.weekly
+    owner: root
+    group: root
+    mode: "0700"
+
+- name: Fix permissions for /etc/cron.monthly
+  ansible.builtin.file:
+    path: /etc/cron.monthly
+    owner: root
+    group: root
+    mode: "0700"
