@@ -1,0 +1,22 @@
+- name: Enable & start acct service
+  ansible.builtin.systemd:
+    name: acct
+    enabled: yes
+    state: started
+  tags:
+  - molecule-idempotence-notest
+
+- name: Enable sysstat data collection
+  ansible.builtin.replace:
+    path: /etc/default/sysstat
+    regexp: 'ENABLED="false"'
+    replace: 'ENABLED="true"'
+
+- name: Enable & start sysstat service
+  ansible.builtin.systemd:
+    name: sysstat
+    enabled: yes
+    state: started
+  tags:
+  - molecule-idempotence-notest
+

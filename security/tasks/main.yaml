@@ -41,3 +41,15 @@
 # Fix Permission
 - name: Fix file / directory permissions
   include_tasks: permission.yaml
+
+# others
+- name: Setup Auditd
+  include_tasks: other.yaml
+
+- name: Setup AIDE
+  include_tasks: aide.yaml
+
+- name: Reboot the server
+  ansible.builtin.reboot:
+  tags:
+  - molecule-notest

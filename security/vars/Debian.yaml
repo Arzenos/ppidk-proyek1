@@ -4,12 +4,27 @@ package_needed:
 - ufw
 - fail2ban
 - auditd
+- audispd-plugins
 - curl
 # - apt-listbugs # not available in ubuntu, Too lazy to make a specific OS vars there fore get rekt
 - apt-listchanges
 - needrestart
 - libpam-tmpdir
 - libpam-pwquality
+- clamav 
+- clamav-daemon
+- aide
+- aide-common
+- acct
+- sysstat
+
+# Mostly for development
+package_to_remove: 
+- gcc
+- g++
+- build-essential
+- binfmt-support
+
 
 apparmor_package:
 - apparmor

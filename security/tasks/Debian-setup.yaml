@@ -15,3 +15,17 @@
 - name: Upgrade all packages (safe upgrade)
   ansible.builtin.apt:
     upgrade: yes
+
+- name: Remove compilers (gcc, make)
+  ansible.builtin.apt:
+    pkg: "{{ package_to_remove }}"
+    state: absent
+
+- name: Disable systemd-binfmt service
+  systemd:
+    name: systemd-binfmt
+    enabled: no
+    state: stopped
+  tags:
+  - molecule-idempotence-notest
+
