@@ -52,7 +52,7 @@ Note: plugins have more extensive tests and may take several minutes to complete
 [+] Debian Tests
 ------------------------------------
 
-  [WARNING]: Test CORE-1000 had a long execution: 10.451121 seconds
+  [WARNING]: Test CORE-1000 had a long execution: 10.507754 seconds
 
 - Checking for system binaries that are required by Debian Tests...
 - Checking /bin...  [ FOUND ]
@@ -80,9 +80,9 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Checking presence GRUB2 [ FOUND ]
 - Checking for password protection [ NONE ]
 - Check running services (systemctl) [ DONE ]
-Result: found 15 running services
+Result: found 16 running services
 - Check enabled services at boot (systemctl) [ DONE ]
-Result: found 18 enabled services
+Result: found 20 enabled services
 - Check startup files (permissions) [ OK ]
 - Running 'systemd-analyze security'
 - auditd.service: [ EXPOSED ]
@@ -96,7 +96,6 @@ Result: found 18 enabled services
 - getty@tty1.service: [ UNSAFE ]
 - ifup@enp1s0.service: [ UNSAFE ]
 - lynis.service: [ UNSAFE ]
-- qemu-guest-agent.service: [ UNSAFE ]
 - rc-local.service: [ UNSAFE ]
 - rescue.service: [ UNSAFE ]
 - ssh.service: [ UNSAFE ]
@@ -110,6 +109,8 @@ Result: found 18 enabled services
 - systemd-timesyncd.service: [ PROTECTED ]
 - systemd-udevd.service: [ MEDIUM ]
 - unattended-upgrades.service: [ UNSAFE ]
+- usbguard-dbus.service: [ UNSAFE ]
+- usbguard.service: [ PROTECTED ]
 
 [+] Kernel
 ------------------------------------
@@ -119,7 +120,7 @@ CPU support: PAE and/or NoeXecute supported [ FOUND ]
 - Checking kernel version and release [ DONE ]
 - Checking kernel type [ DONE ]
 - Checking loaded kernel modules [ DONE ]
-Found 112 active modules
+Found 47 active modules
 - Checking Linux kernel configuration file [ FOUND ]
 - Checking default I/O kernel scheduler [ NOT FOUND ]
 - Checking for available kernel update [ OK ]
@@ -198,14 +199,24 @@ Result: found 8 shells (valid shells: 8).
 - Mount options of /dev [ PARTIALLY HARDENED ]
 - Mount options of /dev/shm [ PARTIALLY HARDENED ]
 - Mount options of /run [ HARDENED ]
-- Total without nodev:5 noexec:5 nosuid:3 ro or noexec (W^X): 5 of total 24
+- Total without nodev:5 noexec:5 nosuid:3 ro or noexec (W^X): 5 of total 23
 - Disable kernel support of some filesystems
 
 [+] USB Devices
 ------------------------------------
 - Checking usb-storage driver (modprobe config) [ NOT DISABLED ]
 - Checking USB devices authorization [ ENABLED ]
-- Checking USBGuard [ NOT FOUND ]
+- Checking USBGuard [ FOUND ]
+- Configuration [ FOUND ]
+- Restore controller device state [ false ]
+- Rule for controllers connected before daemon starts [ keep ]
+- Rule for devices connected before daemon starts [ apply-policy ]
+- Rule for devices inserted after daemon starts [ apply-policy ]
+- Rule for devices not in RuleFile [ block ]
+- RuleFile [ FOUND ]
+- Controllers & Devices allow [ 3 ]
+- Controllers & Devices block [ 0 ]
+- Controllers & Devices reject [ 0 ]
 
 [+] Storage
 ------------------------------------
@@ -230,10 +241,12 @@ Result: found 8 shells (valid shells: 8).
 - Searching dpkg package manager [ FOUND ]
 - Querying package manager
 - Query unpurged packages [ NONE ]
+- debsums utility [ FOUND ]
+- Cron job for debsums [ FOUND ]
 - Checking security repository in sources.list file [ OK ]
 - Checking APT package database [ OK ]
 - Checking vulnerable packages (apt-get only) [ DONE ]
-- Checking upgradeable packages [ SKIPPED ]
+- Checking upgradeable packages [ NONE ]
 - Checking package audit tool [ INSTALLED ]
 Found: apt-get
 - Toolkit for automatic upgrades (unattended-upgrade) [ FOUND ]
@@ -263,15 +276,15 @@ Nameserver: 192.168.122.1 [ OK ]
 - Exim status [ RUNNING ]
 - Type [ LOCAL ONLY ]
 
-  [WARNING]: Test MAIL-8804 had a long execution: 10.058984 seconds
+  [WARNING]: Test MAIL-8804 had a long execution: 10.041923 seconds
 
 
 [+] Software: firewalls
 ------------------------------------
 - Checking iptables kernel module [ FOUND ]
 - Checking iptables policies of chains [ FOUND ]
-- Checking for empty ruleset [ OK ]
-- Checking for unused rules [ FOUND ]
+- Checking for empty ruleset [ WARNING ]
+- Checking for unused rules [ OK ]
 - Checking host based firewall [ ACTIVE ]
 
 [+] Software: webserver
@@ -380,7 +393,7 @@ No database engines found
 ------------------------------------
 - NTP daemon found: systemd (timesyncd) [ FOUND ]
 - Checking for a running NTP daemon or client [ OK ]
-- Last time synchronization [ 29s ]
+- Last time synchronization [ 31s ]
 
 [+] Cryptography
 ------------------------------------
@@ -400,7 +413,7 @@ No database engines found
 ------------------------------------
 - Checking presence AppArmor [ FOUND ]
 - Checking AppArmor status [ ENABLED ]
-Found 28 unconfined processes
+Found 29 unconfined processes
 - Checking presence SELinux [ NOT FOUND ]
 - Checking presence TOMOYO Linux [ NOT FOUND ]
 - Checking presence grsecurity [ NOT FOUND ]
@@ -463,23 +476,23 @@ Directory: /etc/cron.monthly [ OK ]
 [+] Kernel Hardening
 ------------------------------------
 - Comparing sysctl key pairs with scan profile
-- dev.tty.ldisc_autoload (exp: 0) [ DIFFERENT ]
-- fs.protected_fifos (exp: 2) [ DIFFERENT ]
+- dev.tty.ldisc_autoload (exp: 0) [ OK ]
+- fs.protected_fifos (exp: 2) [ OK ]
 - fs.protected_hardlinks (exp: 1) [ OK ]
 - fs.protected_regular (exp: 2) [ OK ]
 - fs.protected_symlinks (exp: 1) [ OK ]
 - fs.suid_dumpable (exp: 0) [ OK ]
-- kernel.core_uses_pid (exp: 1) [ DIFFERENT ]
+- kernel.core_uses_pid (exp: 1) [ OK ]
 - kernel.ctrl-alt-del (exp: 0) [ OK ]
 - kernel.dmesg_restrict (exp: 1) [ OK ]
-- kernel.kptr_restrict (exp: 2) [ DIFFERENT ]
-- kernel.modules_disabled (exp: 1) [ DIFFERENT ]
+- kernel.kptr_restrict (exp: 2) [ OK ]
+- kernel.modules_disabled (exp: 1) [ OK ]
 - kernel.perf_event_paranoid (exp: 3) [ OK ]
 - kernel.randomize_va_space (exp: 2) [ OK ]
-- kernel.sysrq (exp: 0) [ DIFFERENT ]
-- kernel.unprivileged_bpf_disabled (exp: 1) [ DIFFERENT ]
-- kernel.yama.ptrace_scope (exp: 1 2 3) [ DIFFERENT ]
-- net.core.bpf_jit_harden (exp: 2) [ DIFFERENT ]
+- kernel.sysrq (exp: 0) [ OK ]
+- kernel.unprivileged_bpf_disabled (exp: 1) [ OK ]
+- kernel.yama.ptrace_scope (exp: 1 2 3) [ OK ]
+- net.core.bpf_jit_harden (exp: 2) [ OK ]
 - net.ipv4.conf.all.accept_redirects (exp: 0) [ OK ]
 - net.ipv4.conf.all.accept_source_route (exp: 0) [ OK ]
 - net.ipv4.conf.all.bootp_relay (exp: 0) [ OK ]
@@ -487,10 +500,10 @@ Directory: /etc/cron.monthly [ OK ]
 - net.ipv4.conf.all.log_martians (exp: 1) [ DIFFERENT ]
 - net.ipv4.conf.all.mc_forwarding (exp: 0) [ OK ]
 - net.ipv4.conf.all.proxy_arp (exp: 0) [ OK ]
-- net.ipv4.conf.all.rp_filter (exp: 1) [ DIFFERENT ]
-- net.ipv4.conf.all.send_redirects (exp: 0) [ DIFFERENT ]
+- net.ipv4.conf.all.rp_filter (exp: 1) [ OK ]
+- net.ipv4.conf.all.send_redirects (exp: 0) [ OK ]
 - net.ipv4.conf.default.accept_redirects (exp: 0) [ OK ]
-- net.ipv4.conf.default.accept_source_route (exp: 0) [ DIFFERENT ]
+- net.ipv4.conf.default.accept_source_route (exp: 0) [ OK ]
 - net.ipv4.conf.default.log_martians (exp: 1) [ DIFFERENT ]
 - net.ipv4.icmp_echo_ignore_broadcasts (exp: 1) [ OK ]
 - net.ipv4.icmp_ignore_bogus_error_responses (exp: 1) [ OK ]
@@ -505,7 +518,7 @@ Directory: /etc/cron.monthly [ OK ]
 ------------------------------------
 - Installed compiler(s) [ FOUND ]
 - Installed malware scanner [ FOUND ]
-- Non-native binary formats [ FOUND ]
+- Non-native binary formats [ NOT FOUND ]
 
 [+] Custom tests
 ------------------------------------
@@ -518,12 +531,15 @@ Directory: /etc/cron.monthly [ OK ]
 
   -[ Lynis 3.0.8 Results ]-
 
-  Warnings (1):
+  Warnings (2):
   ----------------------------
   ! Couldn't find 2 responsive nameservers [NETW-2705] 
       https://cisofy.com/lynis/controls/NETW-2705/
 
-  Suggestions (29):
+  ! iptables module(s) loaded, but no rules active [FIRE-4512] 
+      https://cisofy.com/lynis/controls/FIRE-4512/
+
+  Suggestions (25):
   ----------------------------
   * This release is more than 4 months old. Check the website or GitHub to see if there is an update available. [LYNIS] 
       https://cisofy.com/lynis/controls/LYNIS/
@@ -565,20 +581,11 @@ Directory: /etc/cron.monthly [ OK ]
   * To decrease the impact of a full /var file system, place /var on a separate partition [FILE-6310] 
       https://cisofy.com/lynis/controls/FILE-6310/
 
-  * Disable drivers like USB storage when not used, to prevent unauthorized storage or data theft [USB-1000] 
-      https://cisofy.com/lynis/controls/USB-1000/
-
   * Disable drivers like firewire storage when not used, to prevent unauthorized storage or data theft [STRG-1846] 
       https://cisofy.com/lynis/controls/STRG-1846/
 
   * Check DNS configuration for the dns domain name [NAME-4028] 
       https://cisofy.com/lynis/controls/NAME-4028/
-
-  * Install debsums utility for the verification of packages with known good database. [PKGS-7370] 
-      https://cisofy.com/lynis/controls/PKGS-7370/
-
-  * Install package apt-show-versions for patch management purposes [PKGS-7394] 
-      https://cisofy.com/lynis/controls/PKGS-7394/
 
   * Check your resolv.conf file and fill in a backup nameserver if possible [NETW-2705] 
       https://cisofy.com/lynis/controls/NETW-2705/
@@ -594,9 +601,6 @@ Directory: /etc/cron.monthly [ OK ]
 
   * Determine if protocol 'tipc' is really needed on this system [NETW-3200] 
       https://cisofy.com/lynis/controls/NETW-3200/
-
-  * Check iptables rules to see which rules are currently not used [FIRE-4513] 
-      https://cisofy.com/lynis/controls/FIRE-4513/
 
   * Enable logging to an external logging host for archiving purposes and additional protection [LOGG-2154] 
       https://cisofy.com/lynis/controls/LOGG-2154/
@@ -625,7 +629,7 @@ Directory: /etc/cron.monthly [ OK ]
 
   Lynis security scan details:
 
-  Hardening index : 79 [###############     ]
+  Hardening index : 86 [#################   ]
   Tests performed : 258
   Plugins enabled : 1
 

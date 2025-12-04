@@ -53,6 +53,9 @@
 - name: Setup AIDE
   include_tasks: aide.yaml
 
+- name: Kernel Hardening
+  include_tasks: kernelmod.yaml
+
 - name: Reboot the server
   ansible.builtin.reboot:
   tags:
