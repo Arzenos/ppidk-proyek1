@@ -60,6 +60,9 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Checking /usr/local/sbin...  [ FOUND ]
 - Authentication:
 - PAM (Pluggable Authentication Modules):
+
+  [WARNING]: Test DEB-0001 had a long execution: 21.632130 seconds
+
 - libpam-tmpdir [ Installed and Enabled ]
 - File System Checks:
 - DM-Crypt, Cryptsetup & Cryptmount:
@@ -79,7 +82,7 @@ Note: plugins have more extensive tests and may take several minutes to complete
 - Checking presence GRUB2 [ FOUND ]
 - Checking for password protection [ NONE ]
 - Check running services (systemctl) [ DONE ]
-Result: found 28 running services
+Result: found 25 running services
 - Check enabled services at boot (systemctl) [ DONE ]
 Result: found 56 enabled services
 - Check startup files (permissions) [ OK ]
@@ -115,14 +118,12 @@ Result: found 56 enabled services
 - systemd-ask-password-wall.service: [ UNSAFE ]
 - systemd-bsod.service: [ UNSAFE ]
 - systemd-fsckd.service: [ UNSAFE ]
-- systemd-hostnamed.service: [ PROTECTED ]
 - systemd-initctl.service: [ UNSAFE ]
 - systemd-journald.service: [ PROTECTED ]
 - systemd-logind.service: [ PROTECTED ]
 - systemd-networkd.service: [ PROTECTED ]
 - systemd-resolved.service: [ PROTECTED ]
 - systemd-rfkill.service: [ UNSAFE ]
-- systemd-timedated.service: [ PROTECTED ]
 - systemd-timesyncd.service: [ PROTECTED ]
 - systemd-udevd.service: [ MEDIUM ]
 - thermald.service: [ UNSAFE ]
@@ -143,7 +144,7 @@ CPU support: PAE and/or NoeXecute supported [ FOUND ]
 - Checking kernel version and release [ DONE ]
 - Checking kernel type [ DONE ]
 - Checking loaded kernel modules [ DONE ]
-Found 45 active modules
+Found 90 active modules
 - Checking Linux kernel configuration file [ FOUND ]
 - Checking default I/O kernel scheduler [ NOT FOUND ]
 - Checking for available kernel update [ OK ]
@@ -226,7 +227,7 @@ Result: found 9 shells (valid shells: 9).
 - Mount options of /dev [ PARTIALLY HARDENED ]
 - Mount options of /dev/shm [ PARTIALLY HARDENED ]
 - Mount options of /run [ HARDENED ]
-- Total without nodev:5 noexec:6 nosuid:3 ro or noexec (W^X): 6 of total 20
+- Total without nodev:5 noexec:6 nosuid:3 ro or noexec (W^X): 6 of total 21
 - Disable kernel support of some filesystems
 
 [+] USB Devices
@@ -275,6 +276,9 @@ Result: found 9 shells (valid shells: 9).
 - Checking security repository in sources.list.d directory [ OK ]
 - Checking APT package database [ OK ]
 - Checking vulnerable packages [ OK ]
+
+  [WARNING]: Test PKGS-7392 had a long execution: 20.354960 seconds
+
 - Checking upgradeable packages [ NONE ]
 - Checking package audit tool [ INSTALLED ]
 Found: apt-check
@@ -310,8 +314,8 @@ Nameserver: 127.0.0.53 [ OK ]
 ------------------------------------
 - Checking iptables kernel module [ FOUND ]
 - Checking iptables policies of chains [ FOUND ]
-- Checking for empty ruleset [ WARNING ]
-- Checking for unused rules [ OK ]
+- Checking for empty ruleset [ OK ]
+- Checking for unused rules [ FOUND ]
 - Checking host based firewall [ ACTIVE ]
 
 [+] Software: webserver
@@ -419,13 +423,13 @@ No database engines found
 ------------------------------------
 - NTP daemon found: systemd (timesyncd) [ FOUND ]
 - Checking for a running NTP daemon or client [ OK ]
-- Last time synchronization [ 15s ]
+- Last time synchronization [ 13s ]
 
 [+] Cryptography
 ------------------------------------
 - Checking for expired SSL certificates [0/151] [ NONE ]
 
-  [WARNING]: Test CRYP-7902 had a long execution: 10.843909 seconds
+  [WARNING]: Test CRYP-7902 had a long execution: 28.612668 seconds
 
 - Found 0 encrypted and 1 unencrypted swap devices in use. [ OK ]
 - Kernel entropy is sufficient [ YES ]
@@ -517,7 +521,7 @@ Directory: /etc/cron.monthly [ OK ]
 - kernel.ctrl-alt-del (exp: 0) [ OK ]
 - kernel.dmesg_restrict (exp: 1) [ OK ]
 - kernel.kptr_restrict (exp: 2) [ OK ]
-- kernel.modules_disabled (exp: 1) [ OK ]
+- kernel.modules_disabled (exp: 1) [ DIFFERENT ]
 - kernel.perf_event_paranoid (exp: 3) [ DIFFERENT ]
 - kernel.randomize_va_space (exp: 2) [ OK ]
 - kernel.sysrq (exp: 0) [ OK ]
@@ -549,7 +553,7 @@ Directory: /etc/cron.monthly [ OK ]
 ------------------------------------
 - Installed compiler(s) [ NOT FOUND ]
 - Installed malware scanner [ FOUND ]
-- Non-native binary formats [ NOT FOUND ]
+- Non-native binary formats [ FOUND ]
 
 [+] Custom tests
 ------------------------------------
@@ -562,15 +566,12 @@ Directory: /etc/cron.monthly [ OK ]
 
   -[ Lynis 3.0.9 Results ]-
 
-  Warnings (2):
+  Warnings (1):
   ----------------------------
   ! Found some information disclosure in SMTP banner (OS or software name) [MAIL-8818] 
       https://cisofy.com/lynis/controls/MAIL-8818/
 
-  ! iptables module(s) loaded, but no rules active [FIRE-4512] 
-      https://cisofy.com/lynis/controls/FIRE-4512/
-
-  Suggestions (25):
+  Suggestions (26):
   ----------------------------
   * This release is more than 4 months old. Check the website or GitHub to see if there is an update available. [LYNIS] 
       https://cisofy.com/lynis/controls/LYNIS/
@@ -637,6 +638,9 @@ Directory: /etc/cron.monthly [ OK ]
     - Details  : disable_vrfy_command=no
     - Solution : run postconf -e disable_vrfy_command=yes to change the value
       https://cisofy.com/lynis/controls/MAIL-8820/
+
+  * Check iptables rules to see which rules are currently not used [FIRE-4513] 
+      https://cisofy.com/lynis/controls/FIRE-4513/
 
   * Enable logging to an external logging host for archiving purposes and additional protection [LOGG-2154] 
       https://cisofy.com/lynis/controls/LOGG-2154/

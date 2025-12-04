@@ -22,6 +22,7 @@ package_needed:
 - sysstat
 - kmod
 - usbguard
+- systemd-resolved
 
 # Mostly for development
 package_to_remove: 

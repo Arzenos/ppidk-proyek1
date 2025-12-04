@@ -60,6 +60,9 @@
   tags:
   - molecule-notest
 
+- name: Setup systemd_resolved
+  include_tasks: systemd-resolved.yaml
+
 - name: Reboot the server
   ansible.builtin.reboot:
   tags:
