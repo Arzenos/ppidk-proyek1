@@ -23,11 +23,7 @@
     mode: "0600"
     owner: root
     group: root
-
-- name: Restart auditd
-  systemd:
-    name: auditd
-    state: restarted
+  notify: Restart auditd
 
 - name: Configure Debian auditd GRUB cmdline
   ansible.builtin.lineinfile:

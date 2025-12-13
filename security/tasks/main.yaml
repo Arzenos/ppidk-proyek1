@@ -34,9 +34,12 @@
 - name: systemd hardening
   include_tasks: systemd-hardening.yaml
 
+- name: Setup systemd_resolved
+  include_tasks: systemd-resolved.yaml
+
 # AppArmor
 - name: Setup and Enable AppArmor
-  include_tasks: apparmor.yaml  
+  include_tasks: apparmor.yaml
 
 # Fix Permission
 - name: Fix file / directory permissions
@@ -45,11 +48,11 @@
 # Setup auditd
 - name: Setup auditd
   include_tasks: auditd.yaml
-  tags: 
+  tags:
   - molecule-notest
 
 # others
-- name: Setup other acct and systat 
+- name: Setup other acct and systat
   include_tasks: other.yaml
 
 - name: Setup AIDE
@@ -59,9 +62,6 @@
   include_tasks: kernelmod.yaml
   tags:
   - molecule-notest
-
-- name: Setup systemd_resolved
-  include_tasks: systemd-resolved.yaml
 
 - name: Reboot the server
   ansible.builtin.reboot:
