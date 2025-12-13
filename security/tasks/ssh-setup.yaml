@@ -3,6 +3,16 @@
 # https://github.com/dev-sec/ansible-collection-hardening/blob/master/roles/ssh_hardening/templates/opensshd.conf.j2
 # https://linux-audit.com/ssh/audit-and-harden-your-ssh-configuration/
 
+- name: Allow SSH on custom port via SELinux
+  community.general.seport:
+    ports: "{{ ssh_new_port }}"
+    proto: tcp
+    setype: ssh_port_t
+    state: present
+  when: ansible_facts.os_family == "RedHat"
+
+# uh how should i do this
+
 - name: Ensure /etc/ssh exists
   ansible.builtin.file:
     path: /etc/ssh
@@ -33,7 +43,7 @@
 
 - name: Restart ssh service
   ansible.builtin.systemd_service:
-    name: ssh.service
+    name: "{{ ssh_service }}"
     state: restarted
   tags:
   - molecule-idempotence-notest
@@ -46,8 +56,8 @@
 - name: Ensure SSH service is running
   ansible.builtin.assert:
     that:
-    - "'ssh.service' in ansible_facts.services"
-    - ansible_facts.services['ssh.service'].state == 'running'
+    - "'{{ssh_service}}' in ansible_facts.services"
+    - ansible_facts.services['{{ssh_service}}'].state == 'running'
     fail_msg: "SSH service is not running or missing. Showing details below:"
     success_msg: "SSH service is active and running."
   register: ssh_check_result
@@ -57,7 +67,7 @@
 
 - name: Print SSH service details if check failed
   ansible.builtin.debug:
-    var: ansible_facts.services['ssh.service']
+    var: ansible_facts.services['{{ssh_service}}']
   when: ssh_check_result is failed
   tags:
   - molecule-idempotence-notest
