@@ -34,8 +34,8 @@
     group: root
     state: present
     create: true
-  loop:
-    - "{{ kernel_misc_modules_blocklist }}"
+  loop: "{{ kernel_fs_modules_blocklist }}"
+
 
 - name: Stat blacklisted kernel modules
   environment:

@@ -49,8 +49,6 @@
   tags:
   - molecule-notest
 
-
-
 # AppArmor
 - name: Setup and Enable AppArmor
   include_tasks: apparmor.yaml
@@ -60,7 +58,6 @@
 - name: Fix file / directory permissions
   include_tasks: permission.yaml
   when: ansible_facts.os_family == "Debian"
-
 
 # Setup auditd
 - name: Setup auditd
@@ -84,3 +81,8 @@
   ansible.builtin.reboot:
   tags:
   - molecule-notest
+
+- name: Wait for SSH to return
+  ansible.builtin.wait_for_connection:
+    delay: 10
+    timeout: 300
